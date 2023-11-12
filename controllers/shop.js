@@ -41,7 +41,7 @@ exports.postCart = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
   const userId = req.userId;
-
+  console.log(userId);
   User.findById(userId)
     .then((user) => {
       if (!user) {
@@ -79,6 +79,11 @@ exports.deleteInCart = (req, res, next) => {
         throw error;
       }
       const gameIndex = user.cart.items.indexOf(gameId);
+      if (gameIndex) {
+        const error = new Error('No this game found');
+        error.statusCode = 404;
+        throw error;
+      }
       user.cart.items.splice(gameIndex, 1);
       return user.save();
     })
