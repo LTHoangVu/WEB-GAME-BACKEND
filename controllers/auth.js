@@ -44,7 +44,7 @@ exports.login = (req, res, next) => {
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
-        const error = new Error('Email này chưa được tạo');
+        const error = new Error('E-mail does NOT exist');
         error.statusCode = 401;
         throw error;
       }
@@ -53,7 +53,7 @@ exports.login = (req, res, next) => {
     })
     .then((isEqual) => {
       if (!isEqual) {
-        const error = new Error('Sai mật khẩu!');
+        const error = new Error('Wrong password!');
         error.statusCode = 401;
         throw error;
       }
