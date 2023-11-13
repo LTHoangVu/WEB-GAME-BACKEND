@@ -29,6 +29,7 @@ exports.getGames = (req, res, next) => {
 exports.getGame = (req, res, next) => {
   const productId = req.params.productId;
   Game.findById(productId)
+    .populate('tags')
     .then((game) => {
       if (!game) {
         const error = new Error('Could not find product.');
@@ -153,7 +154,7 @@ exports.getGame = (req, res, next) => {
 //     });
 // };
 
-const clearImage = (filePath) => {
-  filePath = path.join(__dirname, '..', filePath);
-  fs.unlink(filePath, (err) => console.log(err));
-};
+// const clearImage = (filePath) => {
+//   filePath = path.join(__dirname, '..', filePath);
+//   fs.unlink(filePath, (err) => console.log(err));
+// };
