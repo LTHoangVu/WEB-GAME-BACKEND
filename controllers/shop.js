@@ -123,3 +123,23 @@ exports.postGamesToUser = (req, res, next) => {
       next(err);
     });
 };
+
+exports.deleteAllCart = (req, res, next) => {
+  User.findById(req.userId)
+    .then((user) => {
+      return user.clearCart();
+    })
+    .then((user) => {
+      return user.save();
+    })
+    .then((result) => {
+      res.status(200).json({ message: 'Deleted all in cart' });
+    })
+    .catch((err) => {
+      console.log(err);
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
