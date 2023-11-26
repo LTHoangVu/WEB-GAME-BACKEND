@@ -79,8 +79,8 @@ exports.deleteInCart = (req, res, next) => {
         throw error;
       }
       const gameIndex = user.cart.items.indexOf(gameId);
-      if (!gameIndex) {
-        const error = new Error('No this game found');
+      if (gameIndex === -1) {
+        const error = new Error('this game not found');
         error.statusCode = 404;
         throw error;
       }
